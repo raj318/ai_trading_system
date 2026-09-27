@@ -220,3 +220,9 @@ fundamentals/docs/raw/
 fundamentals/vectordb/fundamentals_db/.lock
 fundamentals/vectordb/fundamentals_db/meta.json
 latest_document_data.json
+fundamentals/db/sqlite/rag_doc_status.db
+fundamentals/db/vectordb/fundamentals_db/.lock
+fundamentals/db/vectordb/fundamentals_db/meta.json
+fundamentals/db/vectordb/fundamentals_db/collection/annual_reports/storage.sqlite
+fundamentals/docs/processed/reliance/annual_reports/
+fundamentals/vectordb/fundamentals_db/collection/annual_reports/storage.sqlite

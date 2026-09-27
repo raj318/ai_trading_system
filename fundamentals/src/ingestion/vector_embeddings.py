@@ -5,7 +5,7 @@ from qdrant_client.models import Distance, PointStruct, VectorParams
 
 class Vembeddings():
     def __init__(self, db_file, collection_name):
-        self.db_file = db_file # '/Users/raj/Documents/personal/ai_trading_system/fundamentals/vectordb/fundamentals_db'
+        self.db_file = db_file # '/Users/raj/Documents/personal/ai_trading_system/fundamentals/db/vectordb/fundamentals_db'
         self.collection_name = collection_name
         self.model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
         self.create_db_instance()
@@ -33,9 +33,7 @@ class Vembeddings():
         return points
 
     def get_vector_size(self):
-        text = 'dummy text'
-        embedding = self.get_vectors(text)
-        return embedding.shape[0]
+        return self.model.get_embedding_dimension()
 
     def add_to_db(self, points):
         self.qdrant.upsert(
@@ -45,8 +43,11 @@ class Vembeddings():
 
     def add_vectors_metadata_to_db(self, chunks):
         vectors = self.get_vectors(chunks['text'])
+        print(f"created vectors")
         vector_size = self.get_vector_size()
         points = self.get_points(vectors, chunks['metadata'])
-
+        print(f"created points")
         self.create_collection(vector_size)
+        print(f"created collection in qdrant")
         self.add_to_db(points)
+        print(f"updated data based with points generated")

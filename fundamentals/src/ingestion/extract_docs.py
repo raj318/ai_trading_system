@@ -1,4 +1,3 @@
-from docling.document_converter import DocumentConverter
 from docling.datamodel.accelerator_options import AcceleratorDevice, AcceleratorOptions
 from docling.datamodel.pipeline_options import PdfPipelineOptions
 from docling.document_converter import DocumentConverter, PdfFormatOption
@@ -39,37 +38,63 @@ class ExtractPDF():
                     )
 
     def valid_document(self, document_path):
-        if os.path.exists(document_path):
-            return True
-        return False
+        return os.path.exists(document_path)
 
     def convert(self, document_path):
         if self.valid_document(document_path):
-            self.docling_pdf_content = self.convertor.convert(document_path)
-        self.print_timings()
+            docling_obj = self.convertor.convert(document_path)
+            self.docling_pdf_content = docling_obj.document
+            self.dump_extracted_pdf_to_json_foramt(document_path)
+            self.print_timings(docling_obj)
 
-    def print_timings(self):
-        for name, timing in self.docling_pdf_content.timings.items():
+    def dump_extracted_pdf_to_json_foramt(self, document_path):
+        docling_json_file = self.get_docling_json_file(document_path)
+        self.dump_to_json(docling_json_file)
+
+    def get_docling_json_file(self, document_path):
+        processed_dir = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/docs/processed/reliance/annual_reports'
+        file_name = Path(document_path).stem
+        file_name = file_name + '.json'
+        return f"{processed_dir}/{file_name}"
+
+    def docling_json_file_exists(self, docling_json_path):
+        return os.path.exists(docling_json_path)
+
+
+    def print_timings(self, docling_obj):
+        for name, timing in docling_obj.timings.items():
             print(name, timing)
 
     def markdown(self, document_path):
         self.convert(document_path)
-        return self.docling_pdf_content.document.export_to_markdown()
+        return self.docling_pdf_content.export_to_markdown()
 
     def dump_to_json(self, f_path):
-        self.convert(f_path)
-        self.docling_pdf_content.document.save_as_json(f_path)
+        if self.docling_pdf_content:
+            self.docling_pdf_content.save_as_json(f_path)
 
     def print_markdown(self, document_path):
         print(self.markdown(document_path))
 
-    def get_chunks_with_metadata(self, document_path):
-        self.convert(document_path)
-        self.create_chunks()
-        self.extract_text_from_chunks()
-        self.extract_metadata_from_chunks(document_path)
+    def load_docling_json_file(self, docling_json_path):
+        json_data = Path(docling_json_path).read_text(encoding='utf-8')
+        self.docling_pdf_content = DoclingDocument.model_validate_json(json_data)
 
-        return {"text": self.text_chunks, 'metadata': self.chunk_metadata}
+    def get_chunks_with_metadata(self, document_path):
+        docling_json_path = self.get_docling_json_file(document_path)
+        if self.docling_json_file_exists(docling_json_path):
+            print(f"docling json exists, loading it to continue!")
+            self.load_docling_json_file(docling_json_path)
+        else:
+            print(f"Creating docling content, dumping to json file for future requirements")
+            self.convert(document_path)
+
+        self.create_chunks()
+        if self.chunks:
+            self.extract_text_from_chunks()
+            self.extract_metadata_from_chunks(document_path)
+
+            return {"text": self.text_chunks, 'metadata': self.chunk_metadata}
 
     def create_chunks(self, max_tokens=512):
         if not self.docling_pdf_content:
@@ -80,7 +105,7 @@ class ExtractPDF():
                     merge_peers=True
                 )
     
-        self.chunks = list(chunker.chunk(self.docling_pdf_content.document))
+        self.chunks = list(chunker.chunk(self.docling_pdf_content))
 
     def extract_text_from_chunks(self):
         self.text_chunks = []
@@ -144,20 +169,21 @@ class ExtractPDF():
     
 class IngestPDF():
     def __init__(self, ):
-        db_dir = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/vectordb/fundamentals_db'
+        db_dir = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/db/vectordb/fundamentals_db'
         db_collections = "annual_reports"
         self.pdf_extractor = ExtractPDF()
         self.db = Vembeddings(db_dir, db_collections)
 
     def update_document_metadata(self, data, doc_metadata):
-        update_metadata = []
         for each_chunk in data['metadata']:
             for each_key in doc_metadata:
                 each_chunk[f"doc_{each_key}"] = doc_metadata[each_key]
-            # update_metadata.append(each_chunk)
         return data
 
     def add_to_db(self, document_path, document_metadata):
         data = self.pdf_extractor.get_chunks_with_metadata(document_path)
+        if not data:
+            print(f"failed to generted chunking data, please debug!")
+            return None
         updated_data = self.update_document_metadata(data, document_metadata)
         self.db.add_vectors_metadata_to_db(updated_data)
