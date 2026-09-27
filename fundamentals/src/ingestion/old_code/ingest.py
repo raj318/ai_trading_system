@@ -1,5 +1,5 @@
-import utils
-from extract_docs import IngestPDF
+import fundamentals.src.ingestion.old_code.utils as utils
+from fundamentals.src.ingestion.old_code.extract_docs import IngestPDF
 
 def get_raw_document_details(documents_df):
     for document in documents_df.to_dict(orient='records'):

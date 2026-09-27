@@ -7,7 +7,7 @@ from docling.chunking import HybridChunker
 from docling_core.types.doc import DoclingDocument
 from pathlib import Path
 from typing import List, Dict, Any, Set
-from vector_embeddings import Vembeddings
+from fundamentals.src.ingestion.old_code.vector_embeddings import Vembeddings
 
 import os
 
