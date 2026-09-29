@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "question": "What was Reliance Industries' consolidated revenue in FY 2023-24?",
+    "expected_answer": "₹10,00,122 crore"
+  },
+  {
+    "id": 2,
+    "question": "What was Reliance Industries' consolidated EBITDA in FY 2023-24?",
+    "expected_answer": "₹1,78,677 crore"
+  },
+  {
+    "id": 3,
+    "question": "What was Reliance Industries' consolidated profit after tax in FY 2023-24?",
+    "expected_answer": "₹79,020 crore"
+  },
+  {
+    "id": 4,
+    "question": "What was Reliance Industries' gross debt at the end of FY 2023-24?",
+    "expected_answer": "₹3,24,622 crore"
+  },
+  {
+    "id": 5,
+    "question": "What was Reliance Retail's revenue in FY 2023-24?",
+    "expected_answer": "₹3,06,848 crore"
+  },
+  {
+    "id": 6,
+    "question": "What was Reliance Retail's EBITDA in FY 2023-24?",
+    "expected_answer": "₹23,082 crore"
+  },
+  {
+    "id": 7,
+    "question": "What was Digital Services revenue in FY 2023-24?",
+    "expected_answer": "₹1,32,938 crore"
+  },
+  {
+    "id": 8,
+    "question": "What was Digital Services EBITDA in FY 2023-24?",
+    "expected_answer": "₹56,697 crore"
+  },
+  {
+    "id": 9,
+    "question": "How much capital expenditure did Reliance Industries incur in FY 2023-24?",
+    "expected_answer": "₹1,31,769 crore"
+  },
+  {
+    "id": 10,
+    "question": "What was Reliance Industries' standalone net profit in FY 2023-24?",
+    "expected_answer": "₹42,042 crore"
+  }
+]

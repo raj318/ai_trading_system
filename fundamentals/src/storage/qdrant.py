@@ -1,6 +1,6 @@
 
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, VectorParams
+from qdrant_client.models import Distance, VectorParams, FilterSelector, Filter
 
 class DB():
     def __init__(self, db_file, collection_name):
@@ -20,6 +20,12 @@ class DB():
                                     distance=Distance.COSINE
                                 )
                 )
+
+    def delete_all(self):
+        self.qdrant.delete(
+            collection_name=self.collection_name,
+            points_selector=FilterSelector(filter=Filter())
+        )
 
     def add_to_db(self, points):
         self.qdrant.upsert(

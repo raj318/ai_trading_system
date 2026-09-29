@@ -7,7 +7,8 @@ from pathlib import Path
 
 
 current_file = Path(__file__).resolve()
-parent_dir = current_file.parent.parent
+parent_dir = current_file.parent.parent.parent
+print(f"parent dir = {parent_dir}")
 sys.path.append(str(parent_dir))
 
 from services import retreivar

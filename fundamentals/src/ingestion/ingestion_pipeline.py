@@ -1,6 +1,5 @@
 import sys
 from lib import utils
-from lib import status_sqlite_db, parser, chunker, embeddings, db_handler
 from pathlib import Path
 
 
@@ -9,6 +8,7 @@ parent_dir = current_file.parent.parent
 sys.path.append(str(parent_dir))
 
 import config
+from lib import status_sqlite_db, parser, chunker, embeddings, db_handler
 
 def main():
 
