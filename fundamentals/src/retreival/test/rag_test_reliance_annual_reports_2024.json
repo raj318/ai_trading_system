@@ -48,5 +48,55 @@
     "id": 10,
     "question": "What was Reliance Industries' standalone net profit in FY 2023-24?",
     "expected_answer": "₹42,042 crore"
+  },
+  {
+    "id": 11,
+    "question": "By what percentage did Reliance Industries' consolidated revenue increase in FY 2023-24 compared with FY 2022-23?",
+    "expected_answer": "2.6%"
+  },
+  {
+    "id": 12,
+    "question": "What were Reliance Industries' standalone EBITDA and standalone PAT in FY 2023-24?",
+    "expected_answer": "Standalone EBITDA was ₹86,393 crore and standalone PAT was ₹42,042 crore."
+  },
+  {
+    "id": 13,
+    "question": "What were the main areas where Reliance invested its capital expenditure in FY 2023-24?",
+    "expected_answer": "Investments were made in network expansion in Digital Services, scaling up the Retail business, increasing production capacities in Oil & Gas, and projects in the O2C business."
+  },
+  {
+    "id": 14,
+    "question": "How much did Reliance Industries' gross debt amount to at the end of FY 2023-24, and how much of it was standalone debt?",
+    "expected_answer": "Gross debt was ₹3,24,622 crore, of which standalone gross debt was ₹2,11,790 crore."
+  },
+  {
+    "id": 15,
+    "question": "How many retail stores did Reliance Retail have at the end of FY 2023-24?",
+    "expected_answer": "18,836 stores."
+  },
+  {
+    "id": 16,
+    "question": "What was Jio's subscriber base at the end of FY 2023-24?",
+    "expected_answer": "481.8 million subscribers."
+  },
+  {
+    "id": 17,
+    "question": "How many Jio subscribers had migrated to the True5G network during FY 2023-24?",
+    "expected_answer": "Over 108 million subscribers."
+  },
+  {
+    "id": 18,
+    "question": "By what percentage did Oil & Gas segment EBITDA increase in FY 2023-24, and what was the main reason given for the increase?",
+    "expected_answer": "Oil & Gas segment EBITDA increased by 48.6%, supported by 56.8% higher gas production in the KG-D6 block."
+  },
+  {
+    "id": 19,
+    "question": "What was Reliance Industries' employee strength in FY 2023-24?",
+    "expected_answer": "3,47,362 employees."
+  },
+  {
+    "id": 20,
+    "question": "What is Reliance Industries' target year for achieving Net Carbon Zero?",
+    "expected_answer": "2035."
   }
 ]

@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "question": "What was Reliance Industries' consolidated revenue in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0070"]
+  },
+  {
+    "id": 2,
+    "question": "What was Reliance Industries' consolidated EBITDA in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0071"]
+  },
+  {
+    "id": 3,
+    "question": "What was Reliance Industries' consolidated profit after tax in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0071"]
+  },
+  {
+    "id": 4,
+    "question": "What was Reliance Industries' gross debt at the end of FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0072"]
+  },
+  {
+    "id": 5,
+    "question": "What was Reliance Retail's revenue in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0086"]
+  },
+  {
+    "id": 6,
+    "question": "What was Reliance Retail's EBITDA in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0086"]
+  },
+  {
+    "id": 7,
+    "question": "What was Digital Services revenue in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0110"]
+  },
+  {
+    "id": 8,
+    "question": "What was Digital Services EBITDA in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0110"]
+  },
+  {
+    "id": 9,
+    "question": "How much capital expenditure did Reliance Industries incur in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0073"]
+  },
+  {
+    "id": 10,
+    "question": "What was Reliance Industries' standalone net profit in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0074"]
+  },
+  {
+    "id": 11,
+    "question": "What was Reliance Industries' consolidated revenue growth in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0070"]
+  },
+  {
+    "id": 12,
+    "question": "What were Reliance Industries' standalone EBITDA and profit after tax in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0074"]
+  },
+  {
+    "id": 13,
+    "question": "What were the major areas where Reliance Industries invested its capital expenditure in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0073"]
+  },
+  {
+    "id": 14,
+    "question": "What was Reliance Industries' gross debt and standalone gross debt in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0072"]
+  },
+  {
+    "id": 15,
+    "question": "How many retail stores did Reliance have at the end of FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0314"]
+  },
+  {
+    "id": 16,
+    "question": "How many subscribers did Jio have in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0315"]
+  },
+  {
+    "id": 17,
+    "question": "How many subscribers had migrated to Jio's True5G network in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0111"]
+  },
+  {
+    "id": 18,
+    "question": "By how much did Oil & Gas EBITDA increase in FY 2023-24, and what was the main reason?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0605"]
+  },
+  {
+    "id": 19,
+    "question": "What was Reliance Industries' employee strength in FY 2023-24?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0296"]
+  },
+  {
+    "id": 20,
+    "question": "What is Reliance Industries' target year for achieving Net Carbon Zero?",
+    "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0251"]
+  }
+]

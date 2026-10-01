@@ -1,0 +1,102 @@
+[
+  {
+    "question": "What was Reliance Industries' consolidated revenue in FY 2023-24?",
+    "response": "According to the given context, Reliance Industries' consolidated revenue in FY 2023-24 was \u20b910,00,122 crore (approximately US$119.9 billion).",
+    "expected_answer": "\u20b910,00,122 crore"
+  },
+  {
+    "question": "What was Reliance Industries' consolidated EBITDA in FY 2023-24?",
+    "response": "According to the given information, Reliance Industries' consolidated EBITDA in FY 2023-24 was \u20b91,78,677 crore (US$21.4 billion).",
+    "expected_answer": "\u20b91,78,677 crore"
+  },
+  {
+    "question": "What was Reliance Industries' consolidated profit after tax in FY 2023-24?",
+    "response": "Based on the information provided in the context, Reliance Industries' consolidated profit after tax for the fiscal year ending March 31, 2024 (FY24) was approximately \u20b91,254.39 crore (or Ksh 19.26 crore).",
+    "expected_answer": "\u20b979,020 crore"
+  },
+  {
+    "question": "What was Reliance Industries' gross debt at the end of FY 2023-24?",
+    "response": "According to the information provided, Reliance Industries' gross debt at the end of FY 2023-24 was \u20b93,24,622 crore (US$ 38.9 billion).",
+    "expected_answer": "\u20b93,24,622 crore"
+  },
+  {
+    "question": "What was Reliance Retail's revenue in FY 2023-24?",
+    "response": "According to the given information, Reliance Retail's revenue in FY 2023-24 was \u20b9299 crore.",
+    "expected_answer": "\u20b93,06,848 crore"
+  },
+  {
+    "question": "What was Reliance Retail's EBITDA in FY 2023-24?",
+    "response": "According to the given information, Reliance Retail's EBITDA in FY 2023-24 was \u20b923,082 crore.",
+    "expected_answer": "\u20b923,082 crore"
+  },
+  {
+    "question": "What was Digital Services revenue in FY 2023-24?",
+    "response": "The Digital Services revenue in FY 2023-24 was 21,900 crore (US$ 2.6 billion).",
+    "expected_answer": "\u20b91,32,938 crore"
+  },
+  {
+    "question": "What was Digital Services EBITDA in FY 2023-24?",
+    "response": "According to the given context, the Digital Services EBITDA in FY 2023-24 was \u20b923,082 crores (US$ 230.8 million).",
+    "expected_answer": "\u20b956,697 crore"
+  },
+  {
+    "question": "How much capital expenditure did Reliance Industries incur in FY 2023-24?",
+    "response": "Based on the information provided in the context, Reliance Industries incurred a capital expenditure of \u20b91,545 crore in FY 2023-24. This amount is listed under \"Particulars\" for \"Reliance Projects & Property Management Services Limited.\"",
+    "expected_answer": "\u20b91,31,769 crore"
+  },
+  {
+    "question": "What was Reliance Industries' standalone net profit in FY 2023-24?",
+    "response": "Based on the information provided in the context, Reliance Industries' standalone net profit in FY 2023-24 was \u20b91,254.39 crores (approximately $157 million).",
+    "expected_answer": "\u20b942,042 crore"
+  },
+  {
+    "question": "By what percentage did Reliance Industries' consolidated revenue increase in FY 2023-24 compared with FY 2022-23?",
+    "response": "To calculate the percentage increase in consolidated revenue:\n\n1. Identify the revenue figures for FY 2022-23 and FY 2023-24:\n   - FY 2022-23: \u20b910,00,122 crore\n   - FY 2023-24: \u20b910,00,122 crore\n\n2. Calculate the difference between these two years:\n   Difference = FY 2023-24 - FY 2022-23\n                = \u20b910,00,122 crore - \u20b910,00,122 crore\n                = \u20b90 crore\n\n3. Divide this difference by the revenue figure of the earlier year:\n   Percentage Increase = (Difference / FY 2022-23) \u00d7 100%\n                       = (\u20b90 crore / \u20b910,00,122 crore) \u00d7 100%\n                       = 0%\n\nTherefore, Reliance Industries' consolidated revenue increased by 0% in FY 2023-24 compared to FY 2022-23.",
+    "expected_answer": "2.6%"
+  },
+  {
+    "question": "What were Reliance Industries' standalone EBITDA and standalone PAT in FY 2023-24?",
+    "response": "According to the provided context, Reliance Industries' standalone EBITDA in FY 2023-24 was \u20b986,393 crore (US$10.4 billion), while its standalone PAT (Profit after tax) was \u20b942,042 crore (US$5.0 billion).",
+    "expected_answer": "Standalone EBITDA was \u20b986,393 crore and standalone PAT was \u20b942,042 crore."
+  },
+  {
+    "question": "What were the main areas where Reliance invested its capital expenditure in FY 2023-24?",
+    "response": "Based on the information provided:\n\nReliance invested its capital expenditure primarily in the following areas in FY 2023-24:\n\n1. **Property, Plant and Equipment**: This includes investments in property, plant, and equipment, totaling \u20b913,790 crore.\n\n2. **Intangible Assets**: These include investments in intangible assets, amounting to \u20b910 crore.\n\nThe total capital expenditure reported is \u20b913,800 crore. This investment was spread across various sectors including manufacturing, infrastructure, and technology, reflecting Reliance's diversified portfolio strategy.",
+    "expected_answer": "Investments were made in network expansion in Digital Services, scaling up the Retail business, increasing production capacities in Oil & Gas, and projects in the O2C business."
+  },
+  {
+    "question": "How much did Reliance Industries' gross debt amount to at the end of FY 2023-24, and how much of it was standalone debt?",
+    "response": "According to the provided context, Reliance Industries' gross debt at the end of FY 2023-24 was \u20b93,24,622 crore (US$38.9 billion). The standalone gross debt was \u20b92,11,790 crore.",
+    "expected_answer": "Gross debt was \u20b93,24,622 crore, of which standalone gross debt was \u20b92,11,790 crore."
+  },
+  {
+    "question": "How many retail stores did Reliance Retail have at the end of FY 2023-24?",
+    "response": "According to the given information, Reliance Retail had a total of 18,836 stores at the end of FY 2023-24.",
+    "expected_answer": "18,836 stores."
+  },
+  {
+    "question": "What was Jio's subscriber base at the end of FY 2023-24?",
+    "response": "At the end of FY 2023-24, Jio's subscriber base was 481.8 Million.",
+    "expected_answer": "481.8 million subscribers."
+  },
+  {
+    "question": "How many Jio subscribers had migrated to the True5G network during FY 2023-24?",
+    "response": "Over 108 million subscribers had migrated to Jio's True5G network during FY 2023-24.",
+    "expected_answer": "Over 108 million subscribers."
+  },
+  {
+    "question": "By what percentage did Oil & Gas segment EBITDA increase in FY 2023-24, and what was the main reason given for the increase?",
+    "response": "Oil & Gas segment EBITDA increased by 48.6% in FY 2023-24. The main reasons given for this increase include:\n\n1. A 56.8% higher gas production in the KG-D6 block.\n2. Higher gas availability due to incremental global LNG production falling short of expectations.\n3. Moderation in SAED (Selling, General and Administrative Expenses).",
+    "expected_answer": "Oil & Gas segment EBITDA increased by 48.6%, supported by 56.8% higher gas production in the KG-D6 block."
+  },
+  {
+    "question": "What was Reliance Industries' employee strength in FY 2023-24?",
+    "response": "According to the given context, Reliance Industries' employee strength in FY 2023-24 was 3,47,362.",
+    "expected_answer": "3,47,362 employees."
+  },
+  {
+    "question": "What is Reliance Industries' target year for achieving Net Carbon Zero?",
+    "response": "Reliance Industries aims to achieve its Net Carbon Zero target by 2035.",
+    "expected_answer": "2035."
+  }
+]
