@@ -9,7 +9,7 @@ sys.path.append(str(parent_dir))
 
 from sentence_transformers import SentenceTransformer
 from storage.qdrant import DB
-from ingestion import config
+from fundamentals.src import config
 
 model = SentenceTransformer(config.sentence_transformer)
 db = DB(config.db_dir, config.db_collections)

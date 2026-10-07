@@ -1,4 +1,4 @@
-import config
+from src import config
 
 from sentence_transformers import SentenceTransformer
 from src.storage.qdrant import DB

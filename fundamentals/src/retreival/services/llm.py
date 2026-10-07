@@ -1,7 +1,7 @@
 
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-import config
+from src import config
 
 class Model():
     def __init__(self):

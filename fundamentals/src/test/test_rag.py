@@ -1,8 +1,8 @@
 import json
 import requests
 
-test_question_path = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/retreival/test/rag_test_reliance_annual_reports_2024.json'
-test_result_path = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/retreival/test/rag_test_results_reliance_annual_reports_2024.json'
+test_question_path = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/test/rag_test_reliance_annual_reports_2024.json'
+test_result_path = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/test/rag_test_results_reliance_annual_reports_2024.json'
 rag_endpoint = 'http://127.0.0.1:8005/quary'
 
 with open(test_question_path, 'r', encoding='utf-8') as fd:

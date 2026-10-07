@@ -7,10 +7,10 @@ current_file = Path(__file__).resolve()
 parent_dir = current_file.parent.parent.parent
 sys.path.append(str(parent_dir))
 
-from retreival import config
-from storage.qdrant import DB
+from src import config
+from src.storage.qdrant import DB
 
-test_expected_chunk_index = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/retreival/test/test_chunk_set_1.json'
+test_expected_chunk_index = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/test/test_chunk_set_1.json'
 
 def main():
 

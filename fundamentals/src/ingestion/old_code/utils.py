@@ -2,7 +2,7 @@ from pathlib import Path
 import pandas as pd
 
 import csv
-import config
+import fundamentals.src.config as config
 
 
 def load_raw_documents_to_pandas():

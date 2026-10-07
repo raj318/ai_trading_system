@@ -1,13 +1,16 @@
-import sys
-from lib import utils
-from pathlib import Path
+# This is similar to ingestion pipline but this will do reset the whole data.
+# This is to test different configurations.
 
+import sys
+from pathlib import Path
 
 current_file = Path(__file__).resolve()
 parent_dir = current_file.parent.parent
 sys.path.append(str(parent_dir))
+print(f"parent dir to sys path = {parent_dir}")
 
-import fundamentals.src.config as config
+from lib import utils
+import config
 from lib import status_sqlite_db, parser, chunker, embeddings, db_handler
 
 def main():
@@ -15,24 +18,22 @@ def main():
     status_db = status_sqlite_db.DocStatus(db_path=config.db_file_path,  table_name=config.status_db_table_name)
 
     raw_documents = utils.load_raw_documents_to_pandas(config.documents_path)
-
     q_db = db_handler.db_helper()
 
     for doc_details in utils.get_raw_document_details(raw_documents):
         doc_metadata_dict = utils.get_document_fields_for_hash(doc_details, config.csv_keys_for_metadata)
         doc_hash = status_db.get_hash_string(doc_metadata_dict)
         if status_db.is_document_exists(doc_hash):
-            print(f"document exists in DB")
-            doc_status = status_db.get_status(doc_hash)
-            if doc_status == 'COMPLETED':
-                print(f"Document processed fully")
-                continue
+            print("document exists in DB")
+            status_db.update_status(doc_hash, config.doc_status_list[0])
+            print(f"updates status to reprocess the document, set to {config.doc_status_list[0]}")
+            q_db.delete_the_data()
             
         status_db.update_status(doc_hash, config.doc_status_list[0])
         print(f"updated status to {config.doc_status_list[0]}")
 
         parser_obj = parser.Parser(doc_details)
-        doc_json = parser_obj.extract_content_to_json()
+        doc_json = parser_obj.extract_content_to_json(reset=False)
         if not doc_json:
             print(f"Parinsng {doc_details['local_path']} Failed!!!!!")
             continue
@@ -40,7 +41,7 @@ def main():
         print(f"updated status to {config.doc_status_list[1]}")
 
         chunker_obj = chunker.PDFChunker(doc_details, doc_json) 
-        doc_chunk = chunker_obj.create_and_save_chunks()
+        doc_chunk = chunker_obj.create_and_save_chunks(reset=True)
         if not doc_chunk:
             print(f"chunking {doc_details['local_path']} Failed!!")
             continue
@@ -48,7 +49,7 @@ def main():
         print(f"updated status to {config.doc_status_list[2]}")
 
         embed_obj = embeddings.Embedder(doc_chunk, doc_details)
-        vectors_file_path = embed_obj.generate_vectors()
+        vectors_file_path = embed_obj.generate_vectors(reset=True)
 
         if not vectors_file_path:
             print(f"vectors {doc_details['local_path']} Failed!")
@@ -57,7 +58,6 @@ def main():
         print(f"updated status to {config.doc_status_list[3]}")
 
         q_db.set_doc_vector_details(doc_details, vectors_file_path)
-
         q_db.save_to_db(doc_id_prefix = doc_metadata_dict)
 
         status_db.update_status(doc_hash, config.doc_status_list[4])
