@@ -5,17 +5,20 @@ from sentence_transformers import SentenceTransformer
 
 current_file = Path(__file__).resolve()
 parent_dir = current_file.parent.parent.parent
+print(f"parent dir = {parent_dir}")
 sys.path.append(str(parent_dir))
 
 from src import config
 from src.storage.qdrant import DB
+# from src.retreival import retreivar
+from src.retreival.services.retreivar import QdrantRetreivar
 
 test_expected_chunk_index = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/test/test_chunk_set_1.json'
 
 def main():
 
     model = SentenceTransformer(config.sentence_transformer)
-    db = DB(config.db_dir, config.db_collections)
+    # db = DB(config.db_dir, config.db_collections)
 
     with open(test_expected_chunk_index, 'r', encoding='utf-8') as fd:
         test_data = json.load(fd)
@@ -27,21 +30,22 @@ def main():
         total_score = 0
         ind_score = 0
 
-
-
-        for test_q in test_data:
+        print(f"recall index = {recall_index}")
+        for index, test_q in enumerate(test_data):
+            print(f"index = {index}")
             test_result = {}
             test_result['test_id'] = test_q['id']
             test_result['question'] = test_q['question']
             test_result['expected_chunk_id'] = test_q['expected_chunk_ids']
             test_result['retreived_chunk_index']= []
 
-            
-            qvector = model.encode(test_q['question']).tolist()
-            top_n_items = db.search(qvector, recall_index)
+            retreiver =QdrantRetreivar()
+            top_n_items = retreiver.get_reranked_top_n(test_q['question'])
 
+            print(f"got top n items from reranker")
             total_score += len(test_q['expected_chunk_ids'])
-            
+
+            print("test1")
             for chunk in top_n_items:
                 
                 found_the_chunk = 0
@@ -56,13 +60,14 @@ def main():
                         break
                 if found_the_chunk:
                     break
+            print('test2')
             
             results.append(test_result)
 
         recall_score = ind_score/total_score
         print(f"recall@{recall_index}= {recall_score}")
 
-    db.close()
+    # db.close()
                 # print(score_point.payload.get('text', '').strip() + "\n\n")
     
 

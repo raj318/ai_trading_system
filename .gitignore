@@ -226,3 +226,4 @@ fundamentals/db/vectordb/fundamentals_db/meta.json
 fundamentals/db/vectordb/fundamentals_db/collection/annual_reports/storage.sqlite
 fundamentals/docs/processed/reliance/annual_reports/
 fundamentals/vectordb/fundamentals_db/collection/annual_reports/storage.sqlite
+nohup.out

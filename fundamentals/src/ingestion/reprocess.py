@@ -21,7 +21,7 @@ def main():
     q_db = db_handler.db_helper()
 
     for doc_details in utils.get_raw_document_details(raw_documents):
-        doc_metadata_dict = utils.get_document_fields_for_hash(doc_details, config.csv_keys_for_metadata)
+        doc_metadata_dict = utils.get_document_fields_for_hash(doc_details, config.csv_keys_for_hashing)
         doc_hash = status_db.get_hash_string(doc_metadata_dict)
         if status_db.is_document_exists(doc_hash):
             print("document exists in DB")

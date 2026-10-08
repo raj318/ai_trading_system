@@ -7,6 +7,7 @@ class DB():
         self.db_file = db_file # '/Users/raj/Documents/personal/ai_trading_system/fundamentals/db/vectordb/fundamentals_db'
         self.collection_name = collection_name
         self.create_db_instance()
+        print("db instance is opened!")
 
     def create_db_instance(self):
         self.qdrant = QdrantClient(path=self.db_file)
@@ -48,6 +49,12 @@ class DB():
         )
 
     def close(self):
+        print("db is trying to get closed!")
         if self.qdrant:
             self.qdrant.close()
+            print("db is closed!")
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("closing at the exit!")
+        self.close()
         
