@@ -4,10 +4,11 @@ from pathlib import Path
 
 
 current_file = Path(__file__).resolve()
-parent_dir = current_file.parent.parent
+parent_dir = current_file.parent.parent.parent
+print(parent_dir)
 sys.path.append(str(parent_dir))
 
-import fundamentals.src.config as config
+import src.config as config
 from lib import status_sqlite_db, parser, chunker, embeddings, db_handler
 
 def main():

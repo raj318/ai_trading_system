@@ -40,10 +40,11 @@ class DB():
         self.add_to_db(points)
         print(f"updated data based with points generated")
 
-    def search(self, query_vector, top_n):
+    def search(self, query_vector, qdrant_filters=None, top_n=None):
         return self.qdrant.query_points(
             collection_name=self.collection_name,
             query=query_vector,
+            query_filter=qdrant_filters,
             limit=top_n,
             with_payload=True
         )

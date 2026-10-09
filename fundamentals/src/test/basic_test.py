@@ -32,27 +32,22 @@ def main():
         retreiver = QdrantRetreivar()
         top_n_items = retreiver.get_reranked_top_n(test_q['question'])
 
-        print(f"top n items = {top_n_items}")
+        # print(f"top n items = {top_n_items}")
         reciprocal_rank = 0
-        print(f"top_n_items = {top_n_items}")
+        # print(f"top_n_items = {top_n_items}")
         for chunk in top_n_items:
-            print(f"chunk = {chunk}")
+            # print(f"chunk = {chunk}\n\n")
             found_the_chunk = False
             for index, score_point in enumerate(chunk[1]):
-                chunk_id = score_point.payload.get('chunk_id').strip()
-                print(f"chunk id = {chunk_id}")
-                print(f"chunk id = {test_q['expected_chunk_ids']}")
-                if chunk_id in test_q['expected_chunk_ids']:
-                    reciprocal_rank = 1/(index + 1)
-                    found_the_chunk = True
-                    break
-            if found_the_chunk:
-                break
-        sum_indexes += reciprocal_rank
-        print(f"sum indexes = {sum_indexes}")
+                print(f"score point = {score_point.payload}")
 
-    mrr_score = sum_indexes/len(test_data)
-    print(f"\nMRR score = {mrr_score}\n")    
+                chunk_id = score_point.payload.get('chunk_id').strip()
+                print(f"chunk id i got= {chunk_id}")
+                print(f"expected chunk id = {test_q['expected_chunk_ids']}")
+                print()
+        break
+
+
 
 if __name__ == "__main__":
     main()

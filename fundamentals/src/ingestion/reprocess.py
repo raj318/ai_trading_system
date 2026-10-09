@@ -5,12 +5,12 @@ import sys
 from pathlib import Path
 
 current_file = Path(__file__).resolve()
-parent_dir = current_file.parent.parent
+parent_dir = current_file.parent.parent.parent
 sys.path.append(str(parent_dir))
 print(f"parent dir to sys path = {parent_dir}")
 
 from lib import utils
-import config
+from src import config
 from lib import status_sqlite_db, parser, chunker, embeddings, db_handler
 
 def main():

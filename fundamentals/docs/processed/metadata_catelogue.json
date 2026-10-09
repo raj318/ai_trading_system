@@ -3,9 +3,13 @@
     "RELIANCE"
   ],
   "document_type": [
+    "quarterly_reports",
+    "presentations",
     "annual_reports"
   ],
   "period": [
-    "FY2023-24"
+    "FY2023-24",
+    "FY2024-25",
+    "FY2025-26"
   ]
 }

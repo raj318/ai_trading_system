@@ -2,6 +2,11 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from src import config
+from src.storage import metadata_models
+import outlines
+from importlib.metadata import version
+
+
 
 class Model():
     def __init__(self):
@@ -10,6 +15,22 @@ class Model():
                         config.LLM_MODEL,
                         device_map="mps"
                     )
+        self.outline_model = outlines.from_transformers(
+            self.model,
+            self.tokenizer
+        )
+
+    def get_metadata_filter_response(self, query, catelog_context):
+        print(f"inside model = {query}")
+        outline_generator = outlines.Generator(self.outline_model, catelog_context)
+        user_q = config.USER_QUARY.copy()
+        context = config.CONTEXT.copy()
+        context['content'] = metadata_models.get_system_prompt()
+        user_q['content'] = query
+        query_prompt = self.get_tokenize_text([context, user_q])
+        query_result = outline_generator(query_prompt, max_new_tokens=200, temperature=0.1)
+        print(f"query result = {query_result}")
+        return query_result
 
     def create_message(self, query, context):
         user_context = f"CONTEXT:\n{context}\n\nQUESTION: {query}"
@@ -27,7 +48,7 @@ class Model():
     def get_llm_response(self, model_input):
         generated_ids = self.model.generate(
             **model_input,
-            max_new_tokens=256,
+            max_new_tokens=300,
             temperature=0.1,
             do_sample=False,
         )

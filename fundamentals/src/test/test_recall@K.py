@@ -13,17 +13,17 @@ from src.storage.qdrant import DB
 # from src.retreival import retreivar
 from src.retreival.services.retreivar import QdrantRetreivar
 
-test_expected_chunk_index = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/test/test_chunk_set_1.json'
+test_expected_chunk_index = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/test/test_chunk_set_5.json'
 
 def main():
-
+    results = ""
     model = SentenceTransformer(config.sentence_transformer)
     # db = DB(config.db_dir, config.db_collections)
 
     with open(test_expected_chunk_index, 'r', encoding='utf-8') as fd:
         test_data = json.load(fd)
 
-    for recall_index in [1, 3, 5, 10, 20]:
+    for recall_index in [1, 3, 5]:
         results = []
         recall_score = None
 
@@ -32,7 +32,6 @@ def main():
 
         print(f"recall index = {recall_index}")
         for index, test_q in enumerate(test_data):
-            print(f"index = {index}")
             test_result = {}
             test_result['test_id'] = test_q['id']
             test_result['question'] = test_q['question']
@@ -42,10 +41,8 @@ def main():
             retreiver =QdrantRetreivar()
             top_n_items = retreiver.get_reranked_top_n(test_q['question'])
 
-            print(f"got top n items from reranker")
             total_score += len(test_q['expected_chunk_ids'])
 
-            print("test1")
             for chunk in top_n_items:
                 
                 found_the_chunk = 0
@@ -60,16 +57,12 @@ def main():
                         break
                 if found_the_chunk:
                     break
-            print('test2')
             
             results.append(test_result)
 
         recall_score = ind_score/total_score
         print(f"recall@{recall_index}= {recall_score}")
-
-    # db.close()
-                # print(score_point.payload.get('text', '').strip() + "\n\n")
-    
+        results += '\b' + f"recall@{recall_index}= {recall_score}"
 
 if __name__ == "__main__":
     main()

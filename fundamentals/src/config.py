@@ -5,6 +5,7 @@ RAW_DOCUMENT_DETAILS = '/Users/raj/Documents/personal/ai_trading_system/fundamen
 documents_path = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/docs/raw/documents.csv'
 processed_docs_dir = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/docs/processed'
 db_file_path = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/db/sqlite/rag_doc_status.db'
+catelogue_path = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/docs/processed/metadata_catelogue.json'
 csv_keys_for_metadata = ['company', 'document_type', 'title', 'period']
 csv_keys_for_hashing = ['document_id', 'company', 'document_type', 'title', 'period']
 metadata_keys_for_catalogue = ['company', 'document_type', 'period']
@@ -32,6 +33,16 @@ top_n_results = 10
 
 
 LLM_MODEL = "Qwen/Qwen2.5-1.5B-Instruct"
+
+metadata_filter_prompt = f"""You are an intent parser for a financial vector database.
+Convert the user question into a clean search query and structured metadata filters.
+
+Catalog Context (Valid values currently in DB):"""
+
+metadata_filter_rule_prompt = """Rules:
+1. Strip filter/metadata terms (e.g. company names, years, categories) from `search_query` so vector search remains focused purely on semantic context.
+2. Only populate filter fields if they match or strongly map to the allowed catalog values above. Leave unmentioned fields as null.
+"""
 
 CONTEXT = {
     'role': 'system',

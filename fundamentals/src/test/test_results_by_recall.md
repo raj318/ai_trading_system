@@ -70,10 +70,14 @@ hierarchical chunking with defautl options
 
 1. bad results compared to hybrid chunker
 
-Reranking with ms-marco-MiniLM-L-6-v2
+Reranking with ms-marco-MiniLM-L-6-v2 (limited only 5 top items from reranker)
 
 1. recall@1= 0.7
 
    recall@3= 0.7
 
    recall@5= 0.7
+
+   recall@10 = 0.7
+
+   recall@20 = 0.7
