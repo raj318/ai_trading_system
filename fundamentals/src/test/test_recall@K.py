@@ -13,7 +13,7 @@ from src.storage.qdrant import DB
 # from src.retreival import retreivar
 from src.retreival.services.retreivar import QdrantRetreivar
 
-test_expected_chunk_index = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/test/test_chunk_set_5.json'
+test_expected_chunk_index = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/src/test/test_chunk_set_20.json'
 
 def main():
     results = ""
