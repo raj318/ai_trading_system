@@ -14,13 +14,19 @@ class MetadataFiltering():
         catelogue_schema = metadata_models.build_schema(catelogue)
         llm_response = self.llm_model.get_metadata_filter_response(query, catelogue_schema)
         # print(f"llm response = {llm_response}")
-        parsed_response = metadata_models.QueryIntent.model_validate_json(llm_response)
-        # print(f"parsed response = {parsed_response}")
-        qdrant_filters = self.get_qdrant_filters(parsed_response.filters)
-        # print(f"qdrant filters = {qdrant_filters}")
-        return qdrant_filters
+        if isinstance(llm_response, (str, bytes, bytearray)):
+            parsed_response = metadata_models.QueryIntentList.model_validate_json(llm_response)
+        elif isinstance(llm_response, dict):
+            parsed_response = metadata_models.QueryIntentList.model_validate(llm_response)
+        else:
+            parsed_response = llm_response
+        
+        return parsed_response
 
-    def get_qdrant_filters(self, filters):
+    def validate_filters(self, filters):
+        return metadata_models.get_qdrant_filter(filters)
+
+    def get_valid_qdrant_filters(self, filters):
         return metadata_models.get_qdrant_filter(filters)
 
     def get_catelogue_data(self):

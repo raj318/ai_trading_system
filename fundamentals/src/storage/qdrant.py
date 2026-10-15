@@ -1,5 +1,5 @@
 
-from qdrant_client import QdrantClient
+from qdrant_client import QdrantClient, models
 from qdrant_client.models import Distance, VectorParams, FilterSelector, Filter
 
 class DB():
@@ -16,10 +16,20 @@ class DB():
         if not self.qdrant.collection_exists(self.collection_name):
             self.qdrant.create_collection(
                     collection_name=self.collection_name,
-                    vectors_config=VectorParams(
-                                    size=vector_size,
-                                    distance=Distance.COSINE
-                                )
+                    vectors_config={
+                        'dense': models.VectorParams(
+                            size=vector_size,
+                            distance=models.Distance.COSINE
+                        )
+                    },
+                    sparse_vectors_config={
+                        'bm25': models.SparseVectorParams(
+                            modifier=models.Modifier.IDF,
+                            index=models.SparseIndexParams(
+                                on_disk=True
+                            )
+                        )
+                    }
                 )
 
     def delete_all(self):
@@ -36,18 +46,40 @@ class DB():
 
     def add_vectors_metadata_to_db(self, vector_size, points):
         self.create_collection(vector_size)
-        print(f"created collection in qdrant")
         self.add_to_db(points)
-        print(f"updated data based with points generated")
 
-    def search(self, query_vector, qdrant_filters=None, top_n=None):
-        return self.qdrant.query_points(
-            collection_name=self.collection_name,
-            query=query_vector,
-            query_filter=qdrant_filters,
-            limit=top_n,
-            with_payload=True
-        )
+    # def search(self, query_vector, qdrant_filters=None, top_n=None):
+    #     return self.qdrant.query_points(
+    #         collection_name=self.collection_name,
+    #         query=query_vector,
+    #         query_filter=qdrant_filters,
+    #         limit=top_n,
+    #         with_payload=True
+    #     )
+
+    def search(self, query_vector, cleaned_query, qdrant_filters=None, top_n=None):
+            return self.qdrant.query_points(
+                collection_name=self.collection_name,
+                prefetch=[
+                    models.Prefetch(
+                        query=query_vector,
+                        using='dense',
+                        limit=50,
+                        filter=qdrant_filters
+                    ),
+                    models.Prefetch(
+                        query=models.Document(text=cleaned_query, model='Qdrant/bm25'),
+                        using='bm25',
+                        limit=50,
+                        filter=qdrant_filters
+                    )
+                ],
+                query=models.RrfQuery(
+                    rrf=models.Rrf(k=60)
+                ),
+                limit=top_n,
+                with_payload=True
+            )
 
     def close(self):
         print("db is trying to get closed!")

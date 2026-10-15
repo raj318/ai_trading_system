@@ -20,34 +20,21 @@ def main():
     with open(test_expected_chunk_index, 'r', encoding='utf-8') as fd:
         test_data = json.load(fd)
 
-    results = []
-    mrr_score = None
-
-    reciprocal_rank = 0
-    sum_indexes = 0
-
-
-    for test_q in test_data:
-
+    for test_q in test_data[:5]:
+        print(f"question = {test_q['question']}")
         retreiver = QdrantRetreivar()
-        top_n_items = retreiver.get_reranked_top_n(test_q['question'])
-
-        # print(f"top n items = {top_n_items}")
-        reciprocal_rank = 0
-        # print(f"top_n_items = {top_n_items}")
-        for chunk in top_n_items:
-            # print(f"chunk = {chunk}\n\n")
-            found_the_chunk = False
-            for index, score_point in enumerate(chunk[1]):
-                print(f"score point = {score_point.payload}")
-
-                chunk_id = score_point.payload.get('chunk_id').strip()
-                print(f"chunk id i got= {chunk_id}")
-                print(f"expected chunk id = {test_q['expected_chunk_ids']}")
-                print()
-        break
-
-
+        # top_n_items = retreiver.get_reranked_top_n(test_q['question'])
+        response = retreiver.get_top_n_results(test_q['question'])
+        print(f"expected chunk = {test_q['expected_chunk_ids']}")
+        # for chunk in top_n_items:
+        #     for sub_query in chunk:
+        #         # print(f"sub query = {sub_query}")
+        #         for index, score_point in enumerate(sub_query[1]):
+        #             chunk_id = score_point.payload.get('chunk_id').strip()
+        #             chunk_text = score_point.payload.get('text')
+        #             print(f"index = {index}")
+        #             print(f"chunk id i got= {chunk_id}")
+        print(f"response = {response}")
 
 if __name__ == "__main__":
     main()

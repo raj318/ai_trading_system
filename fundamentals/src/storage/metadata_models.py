@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field, create_model
-from typing import Optional, Literal
+from typing import Optional, Literal, List
 from qdrant_client.models import Filter, FieldCondition, MatchValue
-import outlines
+from src import config
 import json
 
 class ChunkExtractionMetadata(BaseModel):
@@ -13,15 +13,25 @@ class QueryIntent(BaseModel):
     search_query: str = Field(..., description="cleaned semantic query text, stripout metadata keywords like company name, document type, period")
     filters: ChunkExtractionMetadata
 
+class QueryIntentList(BaseModel):
+    is_multi_part: bool = Field(
+        ...,
+        description="Set to True if the query splits into multiple sub-queries"
+    )
+    sub_queries: List[QueryIntent] = Field(
+        ...,
+        description="List of targeted sub queries to execute against Qdrant"
+    )
+
 def get_qdrant_filter(filters) -> Optional[Filter]:
     must_conditions = []
 
-    # if filters.company:
-    #     must_conditions.append(FieldCondition(key="company", match=MatchValue(value=filters.company)))
+    if filters.company:
+        must_conditions.append(FieldCondition(key="company", match=MatchValue(value=filters.company)))
     if filters.document_type:
         must_conditions.append(FieldCondition(key="document_type", match=MatchValue(value=filters.document_type)))
-    # if filters.period:
-    #     must_conditions.append(FieldCondition(key="period", match=MatchValue(value=filters.period)))
+    if filters.period:
+        must_conditions.append(FieldCondition(key="period", match=MatchValue(value=filters.period)))
     return Filter(must=must_conditions) if must_conditions else None
 
 def build_schema(catelogue):
@@ -37,17 +47,22 @@ def build_schema(catelogue):
         filters=(MetadataModel, Field(..., description="Extracted catalog metadata"))
     )
 
-    return QueryModel
+    DecomposerQueryPlan = create_model(
+        'QueryModel',
+        is_multi_part=(bool, Field(..., description="Set True if the query splits to multiple search queries")),
+        sub_queries=(
+            List[QueryModel],
+            Field(..., description="List of targeted sub-queries to run against Qdrant")
+        )
+    )
+
+    return DecomposerQueryPlan
+
 
 def get_system_prompt():
     schema_json_data = json.dumps(QueryIntent.model_json_schema(), indent=2)
-    return f"""You are an intent parser for a financial vector database.
-Convert the user question into a clean search query and structured metadata filters.
-
-Target Output Schema and Allowed Catalog Values:
+    return f"""{config.metadata_filter_prompt}
 {schema_json_data}
 
-Rules:
-1. Extract filtering parameters strict to the JSON schema types and allowed Enum values.
-2. Strip metadata/filter words from `search_query` so vector search stays focused on semantics.
+{config.metadata_filter_rule_prompt}
 """

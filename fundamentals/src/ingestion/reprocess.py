@@ -27,7 +27,7 @@ def main():
             print("document exists in DB")
             status_db.update_status(doc_hash, config.doc_status_list[0])
             print(f"updates status to reprocess the document, set to {config.doc_status_list[0]}")
-            q_db.delete_the_data()
+            # q_db.delete_the_data()
             
         status_db.update_status(doc_hash, config.doc_status_list[0])
         print(f"updated status to {config.doc_status_list[0]}")

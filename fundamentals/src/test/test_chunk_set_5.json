@@ -1,25 +1,25 @@
 [
   {
     "id": 1,
-    "question": "What was Reliance Industries' consolidated revenue in FY 2023-24 from annual reports type documents?",
+    "question": "What was Reliance Industries consolidated revenue in last three years from annual reports?",
     "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0070"],
     "answer": "₹10,00,122 crore"
   },
   {
     "id": 2,
-    "question": "What was Reliance Industries' consolidated EBITDA in FY 2023-24?",
+    "question": "What was Reliance Industries consolidated EBITDA in FY 2023-24?",
     "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0071"],
     "answer": "₹1,78,677 crore"
   },
   {
     "id": 3,
-    "question": "What was Reliance Industries' consolidated profit after tax in FY 2023-24?",
+    "question": "What was Reliance Industries consolidated profit after tax in FY 2023-24 from annual reports ?",
     "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0071"],
     "answer": "₹79,020 crore"
   },
   {
     "id": 4,
-    "question": "What was Reliance Industries' gross debt at the end of FY 2023-24?",
+    "question": "What was Reliance Industries gross debt at the end of FY 2023-24?",
     "expected_chunk_ids": ["RIL_IAR_2024.pdf_id0072"],
     "answer": "₹3,24,622 crore"
   },
