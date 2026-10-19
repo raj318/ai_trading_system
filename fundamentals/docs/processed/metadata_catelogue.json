@@ -3,11 +3,15 @@
     "RELIANCE"
   ],
   "document_type": [
-    "annual_reports"
+    "annual_reports",
+    "quarterly_reports",
+    "earnings_call_transcript",
+    "financial_presentations"
   ],
   "period": [
-    "FY2025-26",
+    "FY2024-25",
     "FY2023-24",
-    "FY2024-25"
+    "FY2025-26",
+    "FY2026-27"
   ]
 }

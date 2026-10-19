@@ -64,7 +64,6 @@ class QdrantRetreivar():
         else:
             reranked_chunks = self.get_query_output(query, cleaned_query_list.sub_queries[0])
        
-        self.close()
         # print(f"re ranked chunks = {reranked_chunks}")
         return reranked_chunks
 
@@ -75,4 +74,5 @@ class QdrantRetreivar():
         return str(llm_response)
 
     def close(self):
+
         self.db.close()
