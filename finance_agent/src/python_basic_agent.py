@@ -17,7 +17,7 @@ def main():
     context = config.AGENT_PROMPT.copy()
     context[1]['content'] = question
 
-    max_loops = 2
+    max_loops = 3
 
     response = ""
     while max_loops > 0:
