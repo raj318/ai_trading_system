@@ -1,56 +1,84 @@
 import sys
 from pathlib import Path
-from langchain_openai import ChatOpenAI
+
+from transformers import pipeline
 from langchain.agents import create_agent
-from langchain_huggingface import ChatHuggingFace, HuggingFacePipeline
+from langgraph.checkpoint.memory import InMemorySaver
 from langchain_core.messages import HumanMessage
+from langchain_huggingface import HuggingFacePipeline, ChatHuggingFace
+from langchain_ollama import ChatOllama
 
 current_file = Path(__file__).resolve()
 parent_dir = current_file.parent.parent.parent
 print(f"parent dir = {parent_dir}")
 sys.path.append(str(parent_dir))
 
+import config
+
 from global_lib import models
-from finance_agent.src.lib.tool_functions import search_fundamentals
+from finance_agent.src.lib.tool_functions import search_fundamentals, TOOL_REGISTRY
 from finance_agent.src.lib.qwan_chat_model import QwenToolChatModel
 
-import os
 
-from langchain_core.prompts import ChatPromptTemplate
-from transformers import pipeline
-model_id = "Qwen/Qwen3-0.6B"
-
-
-pipe = pipeline(
-    "text-generation",
-    model=model_id,
-    tokenizer=model_id,
-    max_new_tokens=512,
-    do_sample=False,
-    return_full_text=False
+qwen_chat = ChatOllama(
+    model="qwen2.5:7b",
+    temperature=0,
 )
 
-llm = HuggingFacePipeline(pipeline=pipe)
+tools = list(TOOL_REGISTRY.values())
 
-chat_model = ChatHuggingFace(llm=llm)
+checkpointer = InMemorySaver()
 
-qwen_chat = QwenToolChatModel(
-    pipeline=llm.pipeline,
-    tokenizer=chat_model.tokenizer,
-    generation_kwargs={
-        'max_new_tokens': 300,
-        'do_sample': False
+agent = create_agent(
+    model=qwen_chat,
+    tools = tools,
+    system_prompt="""
+"You are a financial expert, you try to understand the question and use available tools to get a company fundamentals like revenue, profits, ebitda etc.. from tools and also use your interlligence to answer user questions
+""",
+    checkpointer=checkpointer,
+)
+
+agent_config = {
+    "configurable": {
+        "thread_id": "fundamental_agent_0001"
     }
-)
-tools = [search_fundamentals]
+}
 
-model_with_tools = qwen_chat.bind_tools(tools)
+while True:
+    user_input = input("\nYou: ").strip()
+
+    if user_input.lower() in {"exit", "quit"}:
+        print("Ending conversation.")
+        break
+
+    if not user_input:
+        continue
 
 
-response = model_with_tools.invoke([
-    HumanMessage(
-        content="What is Reliance Industries' EBITDA?"
+    result = agent.invoke(
+        {
+            "messages": [
+                {"role": "user", "content": user_input}
+            ]
+        },
+        config=agent_config,
     )
-])
-print(response.content)
-print(response.tool_calls)
+
+    state = agent.get_state(agent_config)
+
+    history = state.values.get("messages", [])
+
+    final_answer = next(
+        (
+            message
+            for message in reversed(result["messages"])
+            if message.type == "ai" and not message.tool_calls
+        ),
+        None,
+    )
+
+    if final_answer:
+        print(f"\nAssistant: {final_answer.content}")
+    else:
+        print("\nAssistant: No final answer was returned.")
+        break
