@@ -229,4 +229,5 @@ fundamentals/vectordb/fundamentals_db/collection/annual_reports/storage.sqlite
 nohup.out
 fundamentals/docs/processed/reliance/
 config.py
+fundamentals/src/config.py
 
