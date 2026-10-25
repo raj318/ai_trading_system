@@ -230,4 +230,5 @@ nohup.out
 fundamentals/docs/processed/reliance/
 config.py
 fundamentals/src/config.py
-
+kite_config.yaml
+technical/storage/data/

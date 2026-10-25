@@ -6,6 +6,12 @@ documents_path = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/d
 processed_docs_dir = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/docs/processed'
 db_file_path = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/db/sqlite/rag_doc_status.db'
 catelogue_path = '/Users/raj/Documents/personal/ai_trading_system/fundamentals/docs/processed/metadata_catelogue.json'
+
+tech_storage_data = '/Users/raj/Documents/personal/ai_trading_system/technical/storage/data/'
+tech_hist_data_dir = f'{tech_storage_data}/kite_raw_data'
+parquite_files_dir = f'{tech_storage_data}/parquet_files'
+
+
 csv_keys_for_metadata = ['company', 'document_type', 'title', 'period']
 csv_keys_for_hashing = ['document_id', 'company', 'document_type', 'title', 'period']
 metadata_keys_for_catalogue = ['company', 'document_type', 'period']

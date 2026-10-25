@@ -4,10 +4,10 @@ ai pipeline to do trading
 
 Below are the ideas behind the AI trading app
 
-1. i want to build whole system for one company then extend to several new companies over time.
-2. i want to do fundamental analysis, technical analysis, news impact and system should come up with trading reasons based on three in real time.
-3. for fundamentals i want to create RAG with all the documents realed to company like annual reports and others (suggest if there a better way)
-4. for technical, will take historical data, store locally. learn patterns per company in various situations historically and analyse with current company, nation and global situations
+1. Build whole system for one company then extend to several new companies over time.
+2. Do fundamental analysis, technical analysis, news impact and system should come up with trading reasons based on three in real time.
+3. Create RAG with the fundamental documents realed to company, ex: annual reports and quarterly reports, transcripts etc.
+4. Take historical data, store locally. learn patterns per company in various situations historically and analyse with current company, nation and global situations
 
 Things to do:
 
@@ -25,10 +25,10 @@ Things to do:
 
 Order of things to do :
 
-1. RAG for fundamental analysis
-2. Agentic AI over RAG
-3. Building Techincal Data DB
-4. Agentic AI over RAG and Techincal Data
-5. Market Context setup
-6. Historical Analogue Engine
-7. Pattern suggestion Engine
+1. RAG for fundamental analysis - Done
+2. Agentic AI over RAG - Done
+3. Building Techincal Data DB - Done
+4. Agentic AI over RAG and Techincal Data - In progress
+5. Market Context setup - ToDo
+6. Historical Analogue Engine - ToDo
+7. Pattern suggestion Engine - ToDo
