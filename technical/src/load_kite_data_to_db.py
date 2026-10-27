@@ -17,7 +17,7 @@ import config
 class LoadData():
     def __init__(self, trading_api):
         self.api = trading_api()
-        self.parquet = parquet.ParquetHandler(config.parquite_files_dir)
+        self.parquet = parquet.ParquetHandler()
 
     def connect_api(self):
         self.api.connect()

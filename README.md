@@ -23,7 +23,7 @@ Things to do:
 10. Trading Infrastructure
 11. AI/Agent Layer
 
-Order of things to do :
+Order of things to do  - Status:
 
 1. RAG for fundamental analysis - Done
 2. Agentic AI over RAG - Done
