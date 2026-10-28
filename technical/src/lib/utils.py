@@ -1,4 +1,5 @@
 from datetime import datetime
+from pydantic import BaseModel
 
 def is_valid_date(date, format="%Y-%m-%d %H:%M:%S"):
     """
@@ -12,3 +13,9 @@ def is_valid_date(date, format="%Y-%m-%d %H:%M:%S"):
     except ValueError:
         # Thrown if the string doesn't match the format tokens exactly
         return False
+
+
+class BacktestConfig(BaseModel):
+    initial_capital: float = 100_000
+    position_size: int = 1
+    entry_matching: str = "FIFO"

@@ -35,7 +35,6 @@ def get_latest_timestamp(company):
     return end
 
 if __name__ == "__main__":
-    # data = get_market_data('reliance', interval='30 minutes', start_date='2026-10-22 00:00:00', end_date='2026-10-22 23:59:59')
+    data = get_market_data('reliance', interval='30 minutes', start_date='2026-10-22 00:00:00', end_date='2026-10-22 23:59:59')
     print(f" metadata = {get_latest_timestamp('reliance')}")
-
-    # print(data)
+    print(data)

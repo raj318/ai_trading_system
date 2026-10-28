@@ -16,7 +16,6 @@ class Duck():
 
     def get_command_for_request(self, company, start_date, end_date, interval):
         file_path = self.get_file_path(company)
-        print(file_path)
         command = f"""
                     SELECT 
         time_bucket(INTERVAL '{interval}', date) as timestamp_bucket,

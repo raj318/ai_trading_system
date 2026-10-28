@@ -127,7 +127,8 @@ def main():
     # validate the data
     company = 'reliance'
     data_downloader = LoadData(kite_connect.KiteConnectAPI)
-    data_downloader.sync_to_latest(company=company)
+    # data_downloader.sync_to_latest(company=company)
+    data_downloader.download_data(company=company, years=15)
 
 if __name__ == "__main__":
     main()

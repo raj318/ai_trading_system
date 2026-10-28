@@ -1,0 +1,3 @@
+class Records():
+    def __init__(self):
+        pass
