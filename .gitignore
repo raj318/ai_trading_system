@@ -232,3 +232,4 @@ config.py
 fundamentals/src/config.py
 kite_config.yaml
 technical/storage/data/
+finance_agent/testing/test_stratergies.py

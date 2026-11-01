@@ -21,7 +21,9 @@ class BackTesting():
     }
     date_format = "%Y-%m-%d %H:%M:%S"
 
-    def __init__(self):
+
+
+    def __init__(self, ):
         self.signals = signals.SignalGenerator()
         self.indicators = indicators.Indicators()
         self.data_db = duck_db.Duck()
@@ -35,6 +37,19 @@ class BackTesting():
         """this is to get data from db based on the period and interval"""
         start_date, end_date = self.get_start_end_date(total_years=period_years)
         return self.data_db.get_company_data(company, start_date, end_date, interval=interval)
+
+    def execute(self, json_schema):
+        for indicator in json_schema['indicators']:
+            print(f"indicator = {indicator}")
+            print(f"indicator = {indicator.id}")
+            print(f"indicator = {indicator.parameters}")
+            data = self.get_data(company='reliance', period_years=15)
+            result = self.indicators.get_indicators_data(data, indicator.name, indicator.input.source, indicator.parameters['length'])
+            print(result)
+        for condition in json_schema['conditions']:
+            print(condition)
+        for signal in json_schema['signals']:
+            print(signal)
 
     def get_signals_for_sma_crossover(self, company, sma_fast, sma_slow):
         data_df = self.get_data(company, period_years=15, interval='5 minutes')
@@ -80,9 +95,14 @@ class BackTesting():
         return self.perf
 
 def get_perfomance_of_strategy(company, sma_slow, sma_fast):
+    """
+    For a given SMA slow and SMA fast numbers for a given company,
+    calculates indicator values, finds signals and calculates
+    performances
+    """
     bt = BackTesting()
     signal_data = bt.get_signals_for_sma_crossover(
-                    company="reliance",
+                    company=company.lower(),
                     sma_slow=sma_slow,
                     sma_fast=sma_fast
                 )

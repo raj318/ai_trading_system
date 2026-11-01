@@ -3,7 +3,19 @@ import pandas_ta as ta
 
 class Indicators():
     def __init__(self):
-        pass
+        self.gen_schema()
+
+    def gen_schema(self):
+        self.schema = {
+                'EMA': self.calculate_ema,
+                'SMA': self.calculate_sma,
+                'RSI': self.calculate_rsi,
+            }
+
+    def get_indicators_data(self, data, ind_type, column, window):
+        if ind_type.upper() in self.schema.keys():
+            f = self.schema[ind_type.upper()]
+            return f(data[column], window)
 
     def calculate_ema(self, close: pd.Series, length: int = 20) -> pd.Series:
         """function to calculate dyamic EMA"""

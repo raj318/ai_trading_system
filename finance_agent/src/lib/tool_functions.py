@@ -1,8 +1,12 @@
 import requests
+import pytz
 
 from langchain.tools import tool
 from datetime import datetime
 from zoneinfo import ZoneInfo
+
+from backtesting import backtesting
+from backtesting.lib import pydantic_models
 
 url = 'http://127.0.0.1:8005'
 query_url = f'{url}/quary'
@@ -12,6 +16,7 @@ query_url = f'{url}/quary'
 def search_fundamentals(question:str) -> str:
     """
     function to get fundamental data values like revenue, profits, ebitda values of a company
+    Handles better with one simple question at a time
     """
     if not question:
         return "Question is emtpy!"
@@ -32,8 +37,8 @@ def todays_date() -> str:
     Function returns todays date
     """
     time_zone = pytz.timezone("Asia/Kolkata")
-    date_time = datetime.now(tz)
-    return str(dt.strftime("%Y-%m-%d %H:%M:%S %Z"))
+    now = datetime.now(time_zone)
+    return str(now.strftime("%Y-%m-%d %H:%M:%S %Z"))
 
 @tool
 def get_current_financial_year() -> str:
@@ -49,13 +54,28 @@ def get_current_financial_year() -> str:
         start_year = current_year
         end_year = current_year + 1
 
-    start_str = str(start_year)[-2:]
-    end_str = str(end_year)[-2:]
+    start_str = str(start_year)[-1:]
+    end_str = str(end_year)[-1:]
 
     return f"FY{start_str}-{end_str}"
+
+@tool
+def get_user_input(message) -> str:
+    """function to get user input"""
+    return input(f"\n{message}: ").strip()
+
+@tool(args_schema=pydantic_models.StrategyConfig)
+def get_backtesting_engine_results(**json_schema) -> str:
+    """pass json schema to perform backtesting and return results"""
+    print(f"json schema = {json_schema}")
+    back_testing =  backtesting.BackTesting()
+    back_testing.execute(json_schema)
+    return "As of now there python code is not enabled"
 
 TOOL_REGISTRY = {
     'search_fundamentals': search_fundamentals,
     'todays_date': todays_date,
-    'get_current_financial_year': get_current_financial_year
+    'get_current_financial_year': get_current_financial_year,
+    'get_user_input': get_user_input,
+    'get_backtesting_engine_results': get_backtesting_engine_results
 }
