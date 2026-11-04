@@ -1,87 +1,103 @@
 
-from typing import Any, Literal
-from pydantic import BaseModel, Field
+from typing import Any, Literal, Union, Annotated
+from pydantic import BaseModel, Field, ConfigDict
 
+class StrictConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
 
-# -------------------------
-# Indicator configuration
-# -------------------------
-SupportedIndicators = Literal[
-    "rsi", 
-    "sma", 
-    "ema", 
-    "macd", 
-    "bollinger_bands", 
-    "atr"
-]
+class PeriodParameters(StrictConfig):
+    period: int = Field(gt=0)
 
-class IndicatorInput(BaseModel):
-    source: str = Field(
-        description="Market data source, such as open, high, low, close or volume"
-    )
-
+class MacdParameters(StrictConfig):
+    fast: int = Field(gt=0)
+    slow: int = Field(gt=0)
+    signal: int = Field(gt=0)
 
 class IndicatorConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     id: str
-    step_type: Literal["indicator"] = Field(
-        default="indicator",
-        description="Pipeline step type. Must always be 'indicator'"
-    )
-    name: SupportedIndicators = Field(
-        description="The indicator algorithm to run, e.g. 'rsi', 'sma', 'ema'"
-    )
-    input: IndicatorInput
-    parameters: dict[str, Any]
+    type: Literal["I_EMA", "I_SMA", "I_RSI"]
+    input: str
+    parameters: PeriodParameters
 
+class MACDIndicatorConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
 
-# -------------------------
-# Condition configuration
-# -------------------------
-
-class OperandReference(BaseModel):
-    reference: str = Field(
-        description="ID of an indicator or another supported numeric input"
-    )
-
-
-class OperandValue(BaseModel):
-    value: float
-
-
-class ConditionConfig(BaseModel):
     id: str
-    type: str = Field(
-        description="Condition registry ID, such as C_CROSS_ABOVE or OP_GREATER_THAN"
-    )
-    operands: list[OperandReference | OperandValue]
+    type: Literal["I_MACD"]
+    input: str
+    parameters: MacdParameters
 
+IndicatorUnion = Union[IndicatorConfig, MACDIndicatorConfig]
+IndicatorItem = Annotated[
+    IndicatorUnion,
+    Field(discriminator="type")
+]
+class AllIndicatorConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
 
-# -------------------------
-# Signal configuration
-# -------------------------
+    strategy_name: str
+    indicators: list[IndicatorItem]
 
-class SignalInput(BaseModel):
-    reference: str = Field(
-        description="Reference to a condition or logical expression"
-    )
+class ComparisonParameters(StrictConfig):
+    left: str
+    right: str 
 
+class ValueComparisonParameters(StrictConfig):
+    left: str
+    right: int
 
-class SignalParameters(BaseModel):
+class ConditionTwoSeriesConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    id: str
+    type: Literal[
+        "C_CROSS_ABOVE",
+        "C_CROSS_BELOW"
+    ]
+    parameters: ComparisonParameters
+
+class ConditionOneSeriesConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    id: str
+    type: Literal[
+        "OP_GREATER_THAN",
+        "OP_LESS_THAN",
+        "C_CROSS_ABOVE_VALUE",
+        "C_CROSS_BELOW_VALUE"
+    ]
+    parameters: ValueComparisonParameters
+
+ConditionConfig = Annotated[
+    Union[ConditionTwoSeriesConfig, ConditionOneSeriesConfig],
+    Field(discriminator="type")
+]
+class AllConditions(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    
+    strategy_name: str
+    conditions: list[ConditionConfig]
+
+class BasicSignalParameters(StrictConfig):
+    left: str
+    right: str
+    condition: Literal['AND', 'OR']
     action: Literal["BUY", "SELL"]
 
-
 class SignalConfig(BaseModel):
+
     id: str
-    type: str = "SIG_BASIC"
-    parameters: SignalParameters
-    input: SignalInput
+    type: Literal["SIG_BASIC"]
+    parameters: BasicSignalParameters
 
-
-# -------------------------
-# Complete strategy
-# -------------------------
 
 class StrategyConfig(BaseModel):
-    indicators: list[IndicatorConfig]
+    model_config = ConfigDict(extra="forbid")
+
+    strategy_name: str
+    indicators: list[IndicatorItem]
     conditions: list[ConditionConfig]
     signals: list[SignalConfig]
+    output: str

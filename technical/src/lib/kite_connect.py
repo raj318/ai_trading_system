@@ -1,6 +1,7 @@
 import pandas as pd
 import logging
 from datetime import datetime
+import time
 from typing import Dict, Any, List, Optional
 from technical.src.lib.kite_utils import (
     initialize_kite,
@@ -8,7 +9,6 @@ from technical.src.lib.kite_utils import (
     write_order_history,
     get_live_data,
     get_multiple_live_data,
-    load_config,
     get_time_period,
     get_5min_time_period,
 )
@@ -145,7 +145,8 @@ class KiteConnectAPI:
         
         all_data = []
         for start_date, end_date in date_intervals:
-            # print(f"start date = {start_date}")
+            print(f"Downloading = {start_date}")
+            
             records = self.kite.historical_data(
                         instrument_token=inst,
                         from_date=start_date,
@@ -153,6 +154,8 @@ class KiteConnectAPI:
                         interval="5minute"
                     )
             all_data.extend(records)
+            time.sleep(0.2)
+                
         return all_data
 
     def place_order(self, quantity: int, order_type: str = "MARKET", 

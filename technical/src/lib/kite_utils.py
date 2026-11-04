@@ -219,24 +219,24 @@ def initialize_kite() -> KiteConnect:
     # Generate session
     try:
         data = kite.generate_session(request_token, api_secret=config['api_secret'])
-        # print("Generated session data:", data)
         access_token = data["access_token"]
         # Update only the access token in config file
-        update_access_token(access_token)
-        
+        update_access_token(access_token)        
         # Set access token
         kite.set_access_token(access_token)
+
     except TokenException as err:
         request_token = generate_access_token(kite)
         update_request_token(request_token)
+        
         data = kite.generate_session(request_token, api_secret=config['api_secret'])
-        print("Generated session data:", data)
         access_token = data["access_token"]
+        
         # Update only the access token in config file
         update_access_token(access_token)
-        
         # Set access token
         kite.set_access_token(access_token)
+
         return kite
     except Exception as err:
         print(f"some exception to be handled {str(err)}")

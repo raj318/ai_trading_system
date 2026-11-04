@@ -18,6 +18,7 @@ def search_fundamentals(question:str) -> str:
     function to get fundamental data values like revenue, profits, ebitda values of a company
     Handles better with one simple question at a time
     """
+    print("Searching for fundamentals")
     if not question:
         return "Question is emtpy!"
     data = {
@@ -36,6 +37,7 @@ def todays_date() -> str:
     """
     Function returns todays date
     """
+    print("Getting today's date!")
     time_zone = pytz.timezone("Asia/Kolkata")
     now = datetime.now(time_zone)
     return str(now.strftime("%Y-%m-%d %H:%M:%S %Z"))
@@ -43,6 +45,7 @@ def todays_date() -> str:
 @tool
 def get_current_financial_year() -> str:
     """function to get current financial year """
+    print("Getting current financial year!")
     now = datetime.now()
     current_year = now.year
     current_month = now.month
@@ -66,16 +69,38 @@ def get_user_input(message) -> str:
 
 @tool(args_schema=pydantic_models.StrategyConfig)
 def get_backtesting_engine_results(**json_schema) -> str:
-    """pass json schema to perform backtesting and return results"""
-    print(f"json schema = {json_schema}")
+    """Passes the fully assembled JSON strategy schema to perform backtesting and return results."""
+    print("Getting Backtesting engine!")
+    print(f"json schema inside the tool = {json_schema}")
     back_testing =  backtesting.BackTesting()
-    back_testing.execute(json_schema)
-    return "As of now there python code is not enabled"
+    results = back_testing.execute(json_schema)
+    return results
+
+@tool(args_schema=pydantic_models.AllIndicatorConfig)
+def get_indicator_schema(**json_schema) -> str:
+    """Generates and returns the indicators JSON schema based on required technical indicators."""
+    print(f"calling indicator schema")
+    return json_schema
+
+@tool(args_schema=pydantic_models.AllConditions)
+def get_conditions_schema(**json_schema) -> str:
+    """Generates and returns the condition rules JSON schema matching the created indicator IDs."""
+    print(f"calling conditions schema")
+    return json_schema
+
+@tool(args_schema=pydantic_models.SignalConfig)
+def get_signal_schema(**json_schema) -> str:
+    """Generates and returns the buy/sell signals JSON schema matching the condition IDs."""
+    print(f"calling signal schema")
+    return json_schema
 
 TOOL_REGISTRY = {
     'search_fundamentals': search_fundamentals,
     'todays_date': todays_date,
     'get_current_financial_year': get_current_financial_year,
     'get_user_input': get_user_input,
-    'get_backtesting_engine_results': get_backtesting_engine_results
+    'get_backtesting_engine_results': get_backtesting_engine_results,
+    'get_indicator_schema': get_indicator_schema,
+    'get_conditions_schema': get_conditions_schema,
+    'get_signal_schema': get_signal_schema
 }

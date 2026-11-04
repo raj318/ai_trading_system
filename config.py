@@ -38,7 +38,7 @@ db_collections = "annual_reports"
 top_n_results = 20
 
 LLM_MODEL = "Qwen/Qwen2.5-7B-Instruct" # "Qwen/Qwen2.5-1.5B-Instruct"
-MODEL_NAME = "qwen2.5:7b"
+MODEL_NAME = "gemma4:12b" # "qwen2.5:7b"
 
 metadata_filter_prompt = f"""You are an expert query decomposer for a financial RAG system.
 
